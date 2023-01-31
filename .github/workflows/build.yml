@@ -28,6 +28,7 @@ jobs:
           mkdir build && cd build && cmake ..
 
       - name: Build ROM
+        shell: cmd
         env:
           GDK: ${{ github.workspace }}/SGDK
           GDK_WIN: ${{ github.workspace }}\\SGDK
