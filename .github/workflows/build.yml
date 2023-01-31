@@ -1,0 +1,46 @@
+name: Build and Upload ROM
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-upload:
+    name: Build and Upload
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Checkout SGDK
+        uses: actions/checkout@v2
+        with:
+          repository: Stephane-D/SGDK.git
+          path: SGDK
+          ref: v1.80
+
+      - name: Configure
+        run: |
+          mkdir build && cd build && cmake ..
+
+      - name: Build ROM
+        env:
+          GDK: ${{ github.workspace }}/SGDK
+          GDK_WIN: ${{ github.workspace }}\\SGDK
+        run: |
+          cmake --build build --target SGDK
+
+      - name: Generate Timestamp
+        shell: bash
+        run: echo TIMESTAMP=$(date +%s) >> $GITHUB_ENV
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-${{ env.TIMESTAMP }}
+          path: ./out/
+          if-no-files-found: error
