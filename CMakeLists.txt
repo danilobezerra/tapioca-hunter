@@ -25,7 +25,7 @@ set(PROJECT_COMPILE_COMMAND
         $ENV{GDK}/bin/make.exe
         -f $ENV{GDK}/makefile.gen ${type})
 
-add_custom_target(GensKMod_073 ALL ${SGDK_COMPILE_COMMAND}
+add_custom_target(SGDK ALL ${SGDK_COMPILE_COMMAND}
         COMMAND ${PROJECT_COMPILE_COMMAND}
         DEPENDS ${HEADER_FILES}
         SOURCES ${SRC}
