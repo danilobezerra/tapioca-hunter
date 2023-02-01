@@ -28,12 +28,10 @@ jobs:
           mkdir build && cd build && cmake ..
 
       - name: Build ROM
-        shell: cmd
         env:
-          GDK: ${{ github.workspace }}/SGDK
-          GDK_WIN: ${{ github.workspace }}\\SGDK
+          GDK: ${{ github.workspace }}\SGDK
         run: |
-          cmake --build build --target SGDK
+          cmake --build build --target GGJ-2023
 
       - name: Generate Timestamp
         shell: bash
