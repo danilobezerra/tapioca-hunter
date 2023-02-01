@@ -4,3 +4,4 @@
 out.lst
 /out/
 /boot/
+*.tiled-session
