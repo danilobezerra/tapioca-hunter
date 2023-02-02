@@ -12,7 +12,8 @@ set(SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/boot/rom_head.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/camera.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/player.c)
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/player.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/input.c)
 
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
     set(type debug)

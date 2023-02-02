@@ -15,4 +15,7 @@ typedef struct {
     Vector speed;
 } Character;
 
+bool CHAR_checkCollision(Character* character, s16 x, s16 y);
+void CHAR_move(Character *character);
+
 #endif //GGJ_2023_PLAYER_H

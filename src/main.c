@@ -2,8 +2,10 @@
 #include <resources.h>
 #include "player.h"
 #include "camera.h"
+#include "input.h"
 
 bool isRunning = TRUE;
+bool isPaused = FALSE;
 bool showFPS = TRUE;
 Character player;
 
@@ -41,6 +43,8 @@ int main() {
         // MAP_scrollTo(background, 0, 0);
 
         SPR_update();
+        INPUT_joystickHandler(&player, isPaused);
+        CHAR_move(&player);
 
         if (showFPS) {
             VDP_showFPS(FALSE);
