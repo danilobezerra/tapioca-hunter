@@ -1,5 +1,11 @@
 #include "player.h"
 #include "level.h"
+#include "game_math.h"
+#include "hitboxes.h"
+
+void CHAR_updateCollisions(Character* character) {
+    
+}
 
 bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
     character->isGrounded = FALSE;

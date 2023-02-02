@@ -130,31 +130,17 @@ local matrix = csv_to_matrix(csv)
 local regions = matrix_to_regions(matrix)
 
 local generated_src = {}
-
 for i, region in ipairs(regions) do
   local entry = string.format('  { .x = %d, .y = %d, .w = %d, .h = %d }, /* %d */', region.x-1, region.y-1, region.w, region.h, i)
   table.insert(generated_src, entry)
 end
+generated_src = table.concat(generated_src, '\n')
 
-local header = {
-[[
-#ifndef GGJ_2023_HITBOXES_GUARD
-#define GGJ_2023_HITBOXES_GUARD
+local template_file <close> = io.open('scripts/hitboxes_template.h')
+local template = template_file:read('a')
 
-#include <genesis.h>
+local result = template:gsub('// HITBOXES ARRAY //', generated_src)
+                       :gsub('// HB_COUNT //', '#define HB_COUNT ' .. tostring(#regions))
 
-static const Box hitboxes[] = {]],
-
-table.concat(generated_src, '\n'),
-
-[[
-}
-
-#endif /* GGJ_2023_HITBOXES_GUARD */
-]]
-}
-
-local result = table.concat(header, '\n')
-
-local out_file <close> = io.open('res/hitboxes.h', 'w')
+local out_file <close> = io.open('inc/hitboxes.h', 'w')
 out_file:write(result)
