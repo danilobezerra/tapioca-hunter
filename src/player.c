@@ -1,10 +1,23 @@
 #include "player.h"
 #include "level.h"
 #include "game_math.h"
+#include "collision_mask.h"
 #include "hitboxes.h"
+#include "maths.h"
+
+Box CHAR_hitbox(Character* character) {
+    Box hitbox = {
+        .x = (s16)( fix32ToInt(character->position.x) ),
+        .y = (s16)( fix32ToInt(character->position.y) ),
+        .w = 16,
+        .h = 16,
+    };
+    return hitbox;
+}
 
 void CHAR_updateCollisions(Character* character) {
-    
+    Box bb = CHAR_hitbox(character);
+    character->collisionMask = HB_get_collision_mask(bb);
 }
 
 bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
@@ -34,6 +47,10 @@ bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
     }
 
     return TRUE;
+}
+
+void CHAR_movement(Character* character) {
+    
 }
 
 void CHAR_move(Character *character) {

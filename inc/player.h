@@ -17,5 +17,6 @@ typedef struct {
 void CHAR_updateCollisions(Character* character);
 bool CHAR_checkCollision(Character* character, s16 x, s16 y);
 void CHAR_move(Character *character);
+void CHAR_movement(Character *character);
 
 #endif //GGJ_2023_PLAYER_H
