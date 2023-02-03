@@ -5,7 +5,7 @@
 
 #include <genesis.h>
 #include "game_math.h"
-#include "collision_mask.h"
+#include "collision_data.h"
 
 static const Box hitboxes[] = {
   { .x = 80, .y = 48, .w = 56, .h = 8 }, /* 1 */
@@ -15,6 +15,6 @@ static const Box hitboxes[] = {
 
 #define HB_COUNT 3
 
-CollisionMask HB_get_collision_mask(Box bb);
+CollisionData HB_get_collision_data(Box bb);
 
 #endif // GGJ_2023_HITBOXES_H

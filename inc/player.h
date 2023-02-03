@@ -4,11 +4,11 @@
 #include <genesis.h>
 #include <maths.h>
 
-#include "collision_mask.h"
+#include "collision_data.h"
 
 typedef struct {
     bool isMoving;
-    CollisionMask collisionMask;
+    CollisionData collision;
     bool isGrounded; // TODO: remove
     bool isJumping;
     Vect2D_f32 position;
