@@ -1,6 +1,7 @@
 #include <genesis.h>
 #include "game_math.h"
 #include "collision_mask.h"
+#include "tools.h"
 #include "hitboxes.h"
 
 CollisionMask HB_get_collision_mask(Box bb) {
@@ -15,6 +16,7 @@ CollisionMask HB_get_collision_mask(Box bb) {
 
         Box intersection;
         bool is_intersecting = GMATH_box_intersection(bb, hitbox, &intersection);
+        kprintf("HB ix %d iy %d iw %u ih %u", intersection.x, intersection.y, intersection.w, intersection.h);
 
         if (!is_intersecting) {
             continue;
@@ -25,7 +27,7 @@ CollisionMask HB_get_collision_mask(Box bb) {
         GMATH_box_get_center(hitbox, &hb_center_x, &hb_center_y);
 
         CollisionMask colmask = GMATH_get_collision_mask_from_intersection(
-            bb_center_x, bb_center_y, hitbox
+            bb_center_x, bb_center_y, intersection
         );
 
         result.mask = result.mask | colmask.mask;

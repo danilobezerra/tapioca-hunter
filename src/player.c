@@ -96,11 +96,14 @@ void CHAR_movement(Character* character) {
     // character->position.x -= FIX32(spd_dir_x);
     // character->position.y -= FIX32(spd_dir_y);
     
-    VDP_clearText(3, 2, 4);
-    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_DOWN)))  { VDP_drawText("D", 4, 2); }
-    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_LEFT)))  { VDP_drawText("L", 3, 2); }
-    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_RIGHT))) { VDP_drawText("R", 5, 2); } 
-    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_UP)))    { VDP_drawText("U", 6, 2); }
+    char chmask[5] = "----";
+
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_DOWN)))  { chmask[0] = 'D'; }
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_LEFT)))  { chmask[1] = 'L'; }
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_RIGHT))) { chmask[2] = 'R'; } 
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_UP)))    { chmask[3] = 'U'; }
+
+    kprintf(chmask);
 
     if ( COLMASK_CONTAINS(character->collisionMask, (COLMASK_DOWN | COLMASK_UP)) ) {
         character->speed.y = FIX32(0);
