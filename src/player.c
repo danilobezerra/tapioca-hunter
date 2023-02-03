@@ -1,5 +1,4 @@
 #include "player.h"
-#include "level.h"
 #include "game_math.h"
 #include "collision_mask.h"
 #include "hitboxes.h"
@@ -21,6 +20,7 @@ void CHAR_updateCollisions(Character* character) {
 }
 
 bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
+/*
     character->isGrounded = FALSE;
 
     s16 tileY = y >> 3;
@@ -45,12 +45,19 @@ bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
             }
         }
     }
-
+*/
     return TRUE;
 }
 
 void CHAR_movement(Character* character) {
-    
+    character->position.x += character->speed.x;
+    character->position.y += character->speed.y;
+
+    CHAR_updateCollisions(character);
+
+    if (COLMASK_CONTAINS(character->collisionMask, COLMASK_DOWN)) {
+        character->speed.y = 0;
+    }
 }
 
 void CHAR_move(Character *character) {

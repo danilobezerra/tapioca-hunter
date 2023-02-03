@@ -19,4 +19,6 @@ typedef struct {
 #define COLMASK_DOWN (8)
 #define COLMASK_INIT(X) ((CollisionMask){ .mask = (X) })
 
+#define COLMASK_CONTAINS(X, Y) ( X.mask & Y )
+
 #endif //GGJ_2023_COLLISION_MASK_H

@@ -3,7 +3,7 @@
 void INPUT_joystickHandler(Character* character, bool isPaused) {
     u16 value = JOY_readJoypad(JOY_1);
 
-    if (!isPaused && !character->isMoving) {
+    //if (!isPaused && !character->isMoving) {
         character->speed.x = 0;
 
         if (!character->isGrounded) {
@@ -23,5 +23,5 @@ void INPUT_joystickHandler(Character* character, bool isPaused) {
                 character->speed.y = FIX32(-10);
             }
         }
-    }
+    //}
 }

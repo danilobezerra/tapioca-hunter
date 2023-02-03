@@ -22,7 +22,7 @@ int main() {
 
     player.isMoving = FALSE;
     player.position.x = FIX32(160);
-    player.position.y = FIX32(950);
+    player.position.y = FIX32(10);
     player.speed.x = 0;
     player.speed.y = 0;
 
@@ -44,7 +44,7 @@ int main() {
 
         SPR_update();
         INPUT_joystickHandler(&player, isPaused);
-        CHAR_move(&player);
+        CHAR_movement(&player);
 
         if (showFPS) {
             VDP_showFPS(FALSE);
