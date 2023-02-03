@@ -15,6 +15,7 @@ typedef struct {
     Vect2D_f32 speed;
 } Character;
 
+Character CHAR_init();
 bool CHAR_isGrounded(Character* character);
 void CHAR_updateCollisions(Character* character);
 bool CHAR_checkCollision(Character* character, s16 x, s16 y);

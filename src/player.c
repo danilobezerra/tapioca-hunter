@@ -7,6 +7,20 @@
 #include "hitboxes.h"
 #include "ggj_debug.h"
 
+Character CHAR_init() {
+    return (Character){
+        .isMoving = FALSE,
+        .position = {
+            .x = FIX32(160),
+            .y = FIX32(10),
+        },
+        .speed = {
+            .x = FIX32(0),
+            .y = FIX32(0),
+        }
+    };
+}
+
 Box CHAR_hitbox(Character* character) {
     Box hitbox = {
         .x = (s16)( fix32ToInt(character->position.x) ),
