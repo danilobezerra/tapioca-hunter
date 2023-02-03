@@ -1,6 +1,8 @@
 #ifndef GGJ_2023_GGJ_DEBUG_H
 #define GGJ_2023_GGJ_DEBUG_H
 
+#include "tools.h"
+
 // comment this to disable print debugging
 // #define GGJ_DEBUGGING
 
