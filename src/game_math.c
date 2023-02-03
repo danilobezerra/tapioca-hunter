@@ -51,16 +51,22 @@ CollisionMask GMATH_get_collision_mask_from_intersection(s16 self_center_x, s16 
     
     // horizontal intersection, the intersected is above or below self's hitbox
     if (intersection.w > intersection.h) {
-        if (self_center_y < intersection_center_y) { // self is below intersection
-            return COLMASK_INIT(COLMASK_UP);
-        } else { // self is above intersection
+        VDP_drawText("w", 8, 4);
+    } else {
+        VDP_drawText("h", 8, 4);
+    }
+
+    if (intersection.w > intersection.h) {  
+        if (self_center_y < intersection_center_y) { // self is above intersection
             return COLMASK_INIT(COLMASK_DOWN);
+        } else { // self is below intersection
+            return COLMASK_INIT(COLMASK_UP);
         }
     } else { // vertical intersection, the intersected is on the left or right of self's hitbox
         if (self_center_x < intersection_center_x) { // self is on the left of intersection
-            return COLMASK_INIT(COLMASK_LEFT);
-        } else { // self is on the right of intersection
             return COLMASK_INIT(COLMASK_RIGHT);
+        } else { // self is on the right of intersection
+            return COLMASK_INIT(COLMASK_LEFT);
         }
     }
 }
