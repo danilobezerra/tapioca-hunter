@@ -8,8 +8,8 @@ Box CHAR_hitbox(Character* character) {
     Box hitbox = {
         .x = (s16)( fix32ToInt(character->position.x) ),
         .y = (s16)( fix32ToInt(character->position.y) ),
-        .w = 16,
-        .h = 16,
+        .w = 32,
+        .h = 32,
     };
     return hitbox;
 }
@@ -49,15 +49,69 @@ bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
     return TRUE;
 }
 
+bool CHAR_isGrounded(Character* character) {
+    return COLMASK_CONTAINS(character->collisionMask, COLMASK_DOWN);
+}
+
 void CHAR_movement(Character* character) {
+    // gravity
+    s32 sy = fix32ToInt(character->speed.y);
+
+    if (character->isJumping && CHAR_isGrounded(character)) {
+        sy = -5;
+        character->isJumping = FALSE;
+    }
+
+    sy = clamp( (sy + 1), (-8), (2) );
+
+    character->speed.y = FIX32(sy);
+    
+    // speed direction for direction simulation
+    
+    s8 spd_dir_x = 0;
+    s8 spd_dir_y = 0;
+
+    if (character->speed.x > 0) {
+        spd_dir_x = 1;
+    } else if (character->speed.x < 0) {
+        spd_dir_x = -1;
+    }
+    if (character->speed.y > 0) {
+        spd_dir_y = 1;
+    } else if (character->speed.y < 0) {
+        spd_dir_y = -1;
+    }
+
+    // character->position.x += FIX32(spd_dir_x);
+    // character->position.y += FIX32(spd_dir_y);
+
     character->position.x += character->speed.x;
     character->position.y += character->speed.y;
 
     CHAR_updateCollisions(character);
+    
+    character->position.x -= character->speed.x;
+    character->position.y -= character->speed.y;
+    
+    // character->position.x -= FIX32(spd_dir_x);
+    // character->position.y -= FIX32(spd_dir_y);
+    
+    VDP_clearText(3, 2, 4);
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_DOWN)))  { VDP_drawText("D", 4, 2); }
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_LEFT)))  { VDP_drawText("L", 3, 2); }
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_RIGHT))) { VDP_drawText("R", 5, 2); } 
+    if (COLMASK_CONTAINS(character->collisionMask, (COLMASK_UP)))    { VDP_drawText("U", 6, 2); }
 
-    if (COLMASK_CONTAINS(character->collisionMask, COLMASK_DOWN)) {
-        character->speed.y = 0;
+    if ( COLMASK_CONTAINS(character->collisionMask, (COLMASK_DOWN | COLMASK_UP)) ) {
+        character->speed.y = FIX32(0);
     }
+
+    if ( COLMASK_CONTAINS(character->collisionMask, (COLMASK_LEFT | COLMASK_RIGHT)) ) {
+        character->speed.x = FIX32(0);
+    }
+    
+    character->position.x += character->speed.x;
+    character->position.y += character->speed.y;
 }
 
 void CHAR_move(Character *character) {

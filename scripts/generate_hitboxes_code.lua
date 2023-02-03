@@ -9,6 +9,8 @@
   file, You can obtain one at https://mozilla.org/MPL/2.0/.
 ]]
 
+local TILE_SIZE = 8
+
 local function csv_to_matrix(csv)
   local matrix = {}
 
@@ -131,7 +133,14 @@ local regions = matrix_to_regions(matrix)
 
 local generated_src = {}
 for i, region in ipairs(regions) do
-  local entry = string.format('  { .x = %d, .y = %d, .w = %d, .h = %d }, /* %d */', region.x-1, region.y-1, region.w, region.h, i)
+  local entry = string.format(
+    '  { .x = %d, .y = %d, .w = %d, .h = %d }, /* %d */',
+    (region.x-1) * TILE_SIZE,
+    (region.y-1) * TILE_SIZE,
+    region.w * TILE_SIZE,
+    region.h * TILE_SIZE, 
+    i
+  )
   table.insert(generated_src, entry)
 end
 generated_src = table.concat(generated_src, '\n')
