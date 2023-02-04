@@ -3,7 +3,6 @@
 /.idea/
 out.lst
 /out/
-/boot/
 *.tiled-session
 *.kra~
 *.png~
