@@ -21,5 +21,5 @@ void SCENE_Splash(u16* mainPalette, u16 userIndex) {
     PAL_fadeOutAll(20, FALSE);
     waitTick(TICKPERSECOND / 2);
 
-    SCENE_changeScenes(MAIN_MENU);
+    SCENE_set(MAIN_MENU);
 }

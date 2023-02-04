@@ -26,13 +26,12 @@ void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
         u16 value = JOY_readJoypad(JOY_1);
 
         if (value & BUTTON_START) {
-            SCENE_changeScenes(GAMEPLAY);
+            XGM_stopPlay();
+            SCENE_set(GAMEPLAY);
         }
 
         SYS_doVBlankProcess();
     }
-
-    //VDP_clearTextArea(11, 16, 19, 1);
 
     PAL_fadeOutAll(20, FALSE);
     waitTick(TICKPERSECOND / 2);

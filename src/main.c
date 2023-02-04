@@ -13,16 +13,12 @@ int main() {
     PAL_setColors(0, palette_black, 64, DMA);
     userIndex = TILE_USER_INDEX;
 
-    SCENE_changeScenes(SPLASH);
+    SCENE_set(SPLASH);
 
-    // game loop
     while (isRunning) {
         SCENE_loadCurrentScene(mainPalette, userIndex);
         SYS_doVBlankProcess();
     }
-
-    // free map
-    //MEM_free(background);
 
     return 0;
 }
