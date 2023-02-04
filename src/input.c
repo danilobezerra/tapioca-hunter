@@ -9,9 +9,9 @@ void INPUT_joystickHandler(Character* character, bool isPaused) {
         character->speed.x = 0;
 
         if (value & BUTTON_RIGHT) {
-            character->speed.x = FIX32(2);
+            character->speed.x = FIX32(3);
         } else if (value & BUTTON_LEFT) {
-            character->speed.x = FIX32(-2);
+            character->speed.x = FIX32(-3);
         }
 
         if (value & BUTTON_C) {

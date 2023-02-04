@@ -10,6 +10,9 @@
 Character CHAR_init() {
     return (Character){
         .isMoving = FALSE,
+        .isGrounded = FALSE,
+        .isJumping = FALSE,
+        .isDead = FALSE,
         .position = {
             .x = FIX32(160),
             .y = FIX32(10),
@@ -17,22 +20,22 @@ Character CHAR_init() {
         .speed = {
             .x = FIX32(0),
             .y = FIX32(0),
-        }
+        },
+        .tag = ENTITY_TAG_PLAYER
     };
 }
 
-Box CHAR_hitbox(Character* character) {
-    Box hitbox = {
+Box PLAYER_hitbox(Character* character) {
+    return (Box){
         .x = (s16)( fix32ToInt(character->position.x) + 9 ),
         .y = (s16)( fix32ToInt(character->position.y) + 3 ),
         .w = 10,
         .h = 27,
     };
-    return hitbox;
 }
 
 void CHAR_updateCollisions(Character* character) {
-    Box bb = CHAR_hitbox(character);
+    Box bb = PLAYER_hitbox(character);
     character->collision = HB_get_collision_data(bb);
 }
 
@@ -40,18 +43,24 @@ bool CHAR_isGrounded(Character* character) {
     return COLMASK_CONTAINS(character->collision, COLMASK_DOWN);
 }
 
+void PLAYER_die(Character* character) {
+    character->isDead = TRUE;
+}
+
 void CHAR_movement(Character* character) {
     // gravity
-    s32 sy = fix32ToInt(character->speed.y);
-
-    if (character->isJumping && CHAR_isGrounded(character)) {
-        sy = -10;
-        character->isJumping = FALSE;
+    if (character->tag == ENTITY_TAG_PLAYER) {
+        s32 sy = fix32ToInt(character->speed.y);
+    
+        if (character->isJumping && CHAR_isGrounded(character)) {
+            sy = -10;
+            character->isJumping = FALSE;
+        }
+    
+        sy = clamp( (sy + 1), (-10), (6) );
+    
+        character->speed.y = FIX32(sy);
     }
-
-    sy = clamp( (sy + 1), (-10), (2) );
-
-    character->speed.y = FIX32(sy);
 
     // collision system:
 

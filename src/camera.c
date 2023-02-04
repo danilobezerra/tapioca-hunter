@@ -3,7 +3,7 @@
 s16 cameraPositionX = -1;
 s16 cameraPositionY = -1;
 
-void CAM_setPosition(Map* map, Sprite* sprite, s16 x, s16 y) {
+void CAM_update(Map* map, s16 x, s16 y) {
     if ((x - 160 != cameraPositionX) || (y - 120 != cameraPositionY)) {
         cameraPositionX = x - 160;
         cameraPositionY = y - 120;
@@ -20,7 +20,12 @@ void CAM_setPosition(Map* map, Sprite* sprite, s16 x, s16 y) {
             cameraPositionY = CAMERA_MAX_Y - 320;
         }
 
-        SPR_setPosition(sprite, x - cameraPositionX, y - cameraPositionY);
         MAP_scrollTo(map, cameraPositionX, cameraPositionY);
+    }
+}
+
+void CAM_setSpritePosition(Sprite* sprite, s16 x, s16 y) {
+    if ((x - 160 != cameraPositionX) || (y - 120 != cameraPositionY)) {
+        SPR_setPosition(sprite, x - cameraPositionX, y - cameraPositionY);
     }
 }
