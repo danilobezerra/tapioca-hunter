@@ -7,13 +7,15 @@
 #include "collision_data.h"
 
 typedef struct {
-    bool isMoving;
-    CollisionData collision;
+    bool isMoving; // TODO: remove
     bool isGrounded; // TODO: remove
     bool isJumping;
+    CollisionData collision;
     Vect2D_f32 position;
     Vect2D_f32 speed;
 } Character;
+
+//#define CHAR_MOV_DEBUG
 
 Character CHAR_init();
 bool CHAR_isGrounded(Character* character);
