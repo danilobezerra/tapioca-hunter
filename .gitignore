@@ -1,8 +1,11 @@
 /cmake-build-release/
 /cmake-build-debug/
 /.idea/
+symbol.txt
 out.lst
 /out/
+*.o
+*.bin
 *.tiled-session
 *.kra~
 *.png~
