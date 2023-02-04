@@ -1,10 +1,13 @@
 #include <genesis.h>
-#include "game_math.h"
-#include "collision_mask.h"
-#include "hitboxes.h"
+#include <tools.h>
 
-CollisionMask HB_get_collision_mask(Box bb) {
-    CollisionMask result = { .mask = 0 };
+#include "game_math.h"
+#include "collision_data.h"
+#include "hitboxes.h"
+#include "ggj_debug.h"
+
+CollisionData HB_get_collision_data(Box bb) {
+    CollisionData result = { .mask = 0 };
 
     s16 bb_center_x;
     s16 bb_center_y;
@@ -15,6 +18,7 @@ CollisionMask HB_get_collision_mask(Box bb) {
 
         Box intersection;
         bool is_intersecting = GMATH_box_intersection(bb, hitbox, &intersection);
+        GGJ_PRINTF("HB ix %d iy %d iw %u ih %u", intersection.x, intersection.y, intersection.w, intersection.h);
 
         if (!is_intersecting) {
             continue;
@@ -24,11 +28,11 @@ CollisionMask HB_get_collision_mask(Box bb) {
         s16 hb_center_y;
         GMATH_box_get_center(hitbox, &hb_center_x, &hb_center_y);
 
-        CollisionMask colmask = GMATH_get_collision_mask_from_intersection(
-            bb_center_x, bb_center_y, hitbox
+        CollisionData collision = GMATH_get_collision_data_from_intersection(
+            bb_center_x, bb_center_y, intersection
         );
 
-        result.mask = result.mask | colmask.mask;
+        result.mask = result.mask | collision.mask;
     }
 
     return result;
