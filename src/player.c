@@ -8,8 +8,7 @@
 #include "ggj_debug.h"
 
 Character CHAR_init() {
-    return (Character){
-        .isMoving = FALSE,
+    return (Character) {
         .position = {
             .x = FIX32(160),
             .y = FIX32(10),

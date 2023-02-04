@@ -88,11 +88,7 @@ void SCENE_loadGameplay() {
     VDP_loadTileSet(&game_tileset, userIndex, DMA);
     background = MAP_create(&gamemap, BG_A, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, userIndex));
 
-    player.isMoving = FALSE;
-    player.position.x = FIX32(160);
-    player.position.y = FIX32(10);
-    player.speed.x = 0;
-    player.speed.y = 0;
+    player = CHAR_init();
 
     SPR_init();
     PAL_setPalette(PAL3, player_sprite.palette->data, DMA);
