@@ -10,16 +10,20 @@
 ]]
 
 local TILE_SIZE = 8
+local tiledfile = require 'res.tiled.objects'
 
-local function csv_to_matrix(csv)
+local function get_matrix()
+  local tilelayer = tiledfile.layers[1]
+  local csv = tilelayer.data
+  
   local matrix = {}
 
-  for line in string.gmatch(csv, "(.-)\n") do
+  for i = 1, tilelayer.height do
     table.insert(matrix, {})
-
-    for num in string.gmatch(line, "(-?%d+),?") do
-      local num = tonumber(num)
-      table.insert(matrix[#matrix], num ~= -1)
+    
+    for j = 1, tilelayer.width do
+      local idx = j + (i-1)*56
+      table.insert(matrix[i], csv[idx] ~= 0)
     end
   end
 
@@ -146,9 +150,7 @@ local function matrix_to_regions(matrix)
   return regions
 end
 
-local file <close> = io.open('res/tiled/export.csv')
-local csv = file:read('a')
-local matrix = csv_to_matrix(csv)
+local matrix = get_matrix()
 local regions = matrix_to_regions(matrix)
 
 local generated_src = {}

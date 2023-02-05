@@ -16,6 +16,8 @@ typedef struct {
     CollisionData collision;
     bool isJumping;
     bool isDead;
+    bool isAttacking;
+    s8 direction;
     EntityTag tag;
     Vect2D_f32 position;
     Vect2D_f32 speed;
@@ -25,6 +27,7 @@ typedef struct {
 
 Character CHAR_init();
 Box PLAYER_hitbox(Character* character);
+Box PLAYER_atk_hitbox(Character* character);
 void PLAYER_die(Character* character);
 bool CHAR_isGrounded(Character* character);
 void CHAR_updateCollisions(Character* character);

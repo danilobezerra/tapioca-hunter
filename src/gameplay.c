@@ -4,6 +4,8 @@
 #include "player.h"
 #include "camera.h"
 #include "input.h"
+#include "enemies_init.h"
+#include "enemies.h"
 
 bool isPaused = FALSE;
 bool showFPS = TRUE;
@@ -38,6 +40,8 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
     playerSprite = SPR_addSprite(&player_sprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y),
                                  TILE_ATTR(PAL3, 0, FALSE, FALSE));
 
+    ENEMIES_init();
+        
     SPR_update();
     SYS_doVBlankProcess();
 
@@ -49,12 +53,18 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
         INPUT_joystickHandler(&player, isPaused);
         CHAR_movement(&player);
 
+        ENEMIES_update(&player);
+
         if (showFPS) {
             VDP_showFPS(FALSE);
         }
 
         CAM_update(background, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
         CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
+
+        if (player.isDead) {
+            SCENE_set(ENDING);
+        }
 
         // wait vblank
         SYS_doVBlankProcess();
