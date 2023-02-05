@@ -37,7 +37,6 @@ void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
         u16 value = JOY_readJoypad(JOY_1);
 
         if (value & BUTTON_START) {
-            XGM_stopPlay();
             SCENE_set(GAMEPLAY);
         }
 
