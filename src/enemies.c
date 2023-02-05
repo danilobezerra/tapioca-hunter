@@ -10,6 +10,8 @@
 #include "camera.h"
 #include "game_math.h"
 
+#define SFX_ATTACK 65
+
 Box GHOST_hitbox(Character* character) {
     return (Box){
         .x = (s16)( fix32ToInt(character->position.x) + 9 ),
@@ -52,6 +54,8 @@ void GHOST_update(u16 idx, s32 x, s32 y, Character* player, Box atk) {
     Box hb = GHOST_hitbox(ghost);
 
     if (player->isAttacking && GMATH_is_box_intersecting(hb, atk)) {
+        XGM_startPlayPCM(SFX_ATTACK,1,SOUND_PCM_CH2);
+
         GHOST_die(ghost, ghosts_sprites[idx]);
         GHOST_update_sprite(ghost, ghosts_sprites[idx]);
         goto finish_fn;

@@ -7,6 +7,8 @@
 #include "game_math.h"
 #include "camera.h"
 
+#define SFX_EAT 69
+
 u8 tapiocaCount = TAPIOCA_TOTAL;
 
 void TAPIOCAS_init() {
@@ -40,6 +42,7 @@ Box TAPIOCAS_hitbox(Tapioca* tapioca) {
 void TAPIOCAS_collect(Tapioca* tapioca, Sprite* tapioca_sprite) {
     tapioca->collected = TRUE;
     SPR_setVisibility(tapioca_sprite, HIDDEN);
+    XGM_startPlayPCM(SFX_EAT,1,SOUND_PCM_CH2);
     TAPIOCAS_catch();
 }
 

@@ -11,3 +11,8 @@ XGM gameplay_bgm "music/play.vgm" -1
 XGM ending_bgm "music/ending.vgm" -1
 IMAGE lose_screen "images/game over.png" FAST
 IMAGE win_screen "images/game over.png" FAST
+WAV sfx_enter "sfx/enter.wav" 5
+WAV sfx_attack "sfx/attack.wav" 5
+WAV sfx_eat "sfx/eat.wav" 5
+WAV sfx_jump "sfx/jump.wav" 5
+WAV sfx_walk "sfx/walk.wav" 5
