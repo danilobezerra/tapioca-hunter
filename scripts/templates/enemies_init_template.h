@@ -6,8 +6,8 @@
 
 #define GHOST_COUNT 1
 
-static Character ghosts[GHOST_COUNT];
-static Sprite* ghosts_sprites[GHOST_COUNT];
+Character ghosts[GHOST_COUNT];
+Sprite* ghosts_sprites[GHOST_COUNT];
 
 void GHOST_init(Character* out_ghost, Sprite** out_ghost_sprite, s32 x, s32 y);
 void ENEMIES_init();
