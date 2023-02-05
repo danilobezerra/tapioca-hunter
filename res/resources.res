@@ -5,6 +5,7 @@ PALETTE game_pal "tiled/tileset.png"
 MAP gamemap "tiled/map.tmx" bg
 MAP foremap "tiled/map.tmx" fg
 SPRITE player_sprite "sprites/char_01.png" 4 4 BEST
+SPRITE tapioca_sprite "sprites/tapioca01.png" 2 2 BEST
 XGM main_menu_bgm "music/title.vgm" -1
 XGM gameplay_bgm "music/play.vgm" -1
 XGM ending_bgm "music/ending.vgm" -1

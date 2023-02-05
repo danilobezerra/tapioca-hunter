@@ -6,6 +6,7 @@
 #include "input.h"
 #include "enemies_init.h"
 #include "enemies.h"
+#include "tapiocas.h"
 
 bool isPaused = FALSE;
 bool showFPS = TRUE;
@@ -43,6 +44,7 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
                                  TILE_ATTR(PAL3, 0, FALSE, FALSE));
 
     ENEMIES_init();
+    TAPIOCAS_init();
         
     SPR_update();
     SYS_doVBlankProcess();
@@ -56,6 +58,7 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
         CHAR_movement(&player);
 
         ENEMIES_update(&player);
+        TAPIOCAS_update(&player);
 
         if (showFPS) {
             VDP_showFPS(FALSE);
@@ -64,14 +67,15 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
         CAM_update(foreground, background, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
         CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
 
-        if (player.isDead) {
+        if (player.isDead || TAPIOCAS_getCount() == 0 ) {
             SCENE_set(ENDING);
         }
-
+        
         // wait vblank
         SYS_doVBlankProcess();
     }
 
     PAL_fadeOutAll(15, FALSE);
+    CAM_update(foreground, background, 0, 0);
     waitTick(TICKPERSECOND / 2);
 }
