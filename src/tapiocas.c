@@ -72,7 +72,7 @@ u8 TAPIOCAS_getCount() {
 }
 
 void TAPIOCAS_clear() {
-    for (int i = 0; i < TAPIOCAS_TOTAL; ++i) {
+    for (int i = 0; i < TAPIOCA_TOTAL; ++i) {
         SPR_releaseSprite(tapiocas_sprites[i]);
     }
 }
