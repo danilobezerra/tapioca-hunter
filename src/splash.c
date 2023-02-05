@@ -14,12 +14,9 @@ void SCENE_Splash(u16* mainPalette, u16 userIndex) {
 
     memcpy(&mainPalette[0], splash.palette->data, 32);
 
-    PAL_fadeIn(0, 63, mainPalette, 20, FALSE);
-    JOY_setEventHandler(NULL);
+    PAL_fadeIn(0, 63, mainPalette, 30, FALSE);
     waitTick(TICKPERSECOND * 3);
-
-    PAL_fadeOutAll(20, FALSE);
-    waitTick(TICKPERSECOND / 2);
+    PAL_fadeOutAll(30, FALSE);
 
     SCENE_set(MAIN_MENU);
 }
