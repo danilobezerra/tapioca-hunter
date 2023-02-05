@@ -6,4 +6,4 @@ lua scripts/generate_hitboxes.lua
 lua scripts/generate_enemies_init.lua
 
 echo "BUILD: Running make"
-make -f Makefile
+make -f Makefile all

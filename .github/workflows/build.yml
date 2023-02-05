@@ -8,38 +8,38 @@ on:
 jobs:
   build-and-upload:
     name: Build and Upload
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           lfs: true
 
-      - name: Checkout SGDK
-        uses: actions/checkout@v2
+      - name: Download Marsdev
+        uses: i3h/download-release-asset@v1
         with:
-          repository: Stephane-D/SGDK.git
-          path: SGDK
-          ref: v1.80
+          owner: andwn
+          repo: marsdev
+          tag: '2022.10'
+          file: mars-2022.10-linux-x64.tar.xz
 
-      - name: Configure
-        run: |
-          mkdir build && cd build && cmake ..
+      - name: Install Lua
+        uses: leafo/gh-actions-lua@v10
 
       - name: Build ROM
         env:
-          GDK: ${{ github.workspace }}\SGDK
+          MARSDEV: ${{ github.workspace }}/mars
         run: |
-          cmake --build build --target GGJ-2023
-
-      - name: Generate Timestamp
-        shell: bash
-        run: echo TIMESTAMP=$(date +%s) >> $GITHUB_ENV
+          tar -xvf mars-2022.10-linux-x64.tar.xz
+          echo TIMESTAMP=$(date +%s) >> $GITHUB_ENV
+          ./scripts/mars/build.sh
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.event.repository.name }}-${{ env.TIMESTAMP }}
-          path: ./out/
+          path: |
+            ./out.bin
+            ./symbol.txt
           if-no-files-found: error
