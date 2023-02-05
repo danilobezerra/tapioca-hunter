@@ -1,11 +1,10 @@
-local function new_ghost(x, y)
-  return { x=x, y=y }
-end
+local tiledfile = require 'res.tiled.objects'
 
-local ghosts = {
-  new_ghost(60, 60),
-  new_ghost(128, 52),
-}
+local ghosts = tiledfile.layers[2].objects or {}
+
+if #ghosts == 0 then
+  print("'WARN: couldn't get ghosts")
+end
 
 local function ghost_to_code(idx)
   local ghost = ghosts[idx]

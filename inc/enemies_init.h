@@ -4,7 +4,7 @@
 #include <genesis.h>
 #include "player.h"
 
-#define GHOST_COUNT 2
+#define GHOST_COUNT 3
 
 Character ghosts[GHOST_COUNT];
 Sprite* ghosts_sprites[GHOST_COUNT];

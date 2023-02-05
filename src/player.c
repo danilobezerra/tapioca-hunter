@@ -19,6 +19,7 @@ Character CHAR_init() {
             .x = FIX32(0),
             .y = FIX32(0),
         },
+        .direction = 1,
         .tag = ENTITY_TAG_PLAYER
     };
 }
@@ -30,6 +31,17 @@ Box PLAYER_hitbox(Character* character) {
         .w = 10,
         .h = 27,
     };
+}
+
+Box PLAYER_atk_hitbox(Character* character) {
+    s16 dir = character->direction;
+    Box hitbox = {
+        .x = ((s16)fix32ToInt(character->position.x) + 9) + (10 * dir),
+        .y = (s16)(fix32ToInt(character->position.y) + 3),
+        .w = 10,
+        .h = 27,
+    };
+    return hitbox;
 }
 
 void CHAR_updateCollisions(Character* character) {
@@ -58,6 +70,13 @@ void CHAR_movement(Character* character) {
         sy = clamp((sy + 1), (-10), (6));
 
         character->speed.y = FIX32(sy);
+    }
+
+    // store direction
+    if (character->speed.x > 0) {
+        character->direction = 1;
+    } else if (character->speed.x < 0) {
+        character->direction = -1;
     }
 
     // collision system:
