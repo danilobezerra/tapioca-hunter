@@ -2,6 +2,19 @@
 
 #include "scene_manager.h"
 
+u8 tickCount = 0;
+
+void blinkText() {
+    tickCount++;
+
+    if (tickCount >= 60) {
+        tickCount = 0;
+    }
+
+    VDP_setTextPalette(tickCount < 30 ? PAL2 : PAL0);
+    VDP_drawText("Press START button", 11, 20);
+}
+
 void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
     VDP_clearPlane(BG_A, TRUE);
     DMA_waitCompletion();
@@ -19,8 +32,6 @@ void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
     VDP_drawText("   Graphic/Music by Marcio   ", 5, 26);
 
     PAL_fadeIn(0, 63, mainPalette, 60, FALSE);
-    PAL_waitFadeCompletion();
-    VDP_drawText("Press START button", 11, 20);
 
     while (currentScene == MAIN_MENU) {
         u16 value = JOY_readJoypad(JOY_1);
@@ -30,9 +41,10 @@ void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
             SCENE_set(GAMEPLAY);
         }
 
+        blinkText();
         SYS_doVBlankProcess();
     }
 
-    PAL_fadeOutAll(20, FALSE);
-    waitTick(TICKPERSECOND / 2);
+    PAL_fadeOutAll(30, FALSE);
+    waitTick(TICKPERSECOND);
 }
