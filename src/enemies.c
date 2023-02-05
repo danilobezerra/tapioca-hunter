@@ -23,12 +23,10 @@ void GHOST_update(u16 idx, s32 x, s32 y, Character* player) {
     Character* ghost = &ghosts[idx];
     kprintf("Possibly Ghost update, %d", ghost->tag);
     
-    // if (ghost->tag != ENTITY_TAG_GHOST) {
-        // not processing a ghost, skip entity
-       //  return;
-    // }
-
-    kprintf("indeed it's a ghost");
+    if (ghost->tag != ENTITY_TAG_GHOST) {
+       // not processing a ghost, skip entity
+       return;
+    }
 
     Sprite* ghost_sprite = ghosts_sprites[idx];
 
