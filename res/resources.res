@@ -8,3 +8,5 @@ SPRITE player_sprite "sprites/char_01.png" 4 4 BEST
 XGM main_menu_bgm "music/title.vgm" -1
 XGM gameplay_bgm "music/play.vgm" -1
 XGM ending_bgm "music/ending.vgm" -1
+IMAGE lose_screen "images/game over.png" FAST
+IMAGE win_screen "images/game over.png" FAST
