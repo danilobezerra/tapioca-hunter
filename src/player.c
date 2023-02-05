@@ -35,10 +35,10 @@ Character CHAR_init() {
 
 Box PLAYER_hitbox(Character* character) {
     return (Box) {
-        .x = (s16) (fix32ToInt(character->position.x) + 9),
+        .x = (s16) (fix32ToInt(character->position.x) + 5),
         .y = (s16) (fix32ToInt(character->position.y) + 3),
-        .w = 10,
-        .h = 27,
+        .w = 7,
+        .h = 13,
     };
 }
 

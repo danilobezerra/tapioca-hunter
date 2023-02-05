@@ -17,6 +17,8 @@ void TAPIOCAS_init() {
     tapiocas[2] = (Tapioca){ .pos = { .x = 320, .y = 152 }, .collected = FALSE };
     tapiocas[3] = (Tapioca){ .pos = { .x = 360, .y = 152 }, .collected = FALSE };
     tapiocas[4] = (Tapioca){ .pos = { .x = 392, .y = 152 }, .collected = FALSE };
+    
+    PAL_setPalette(PAL2, ghost_sprite.palette->data, DMA);
 
     for (int i = 0; i < TAPIOCA_TOTAL; ++i) {
         tapiocas[i].pos.x -= 8;
@@ -25,7 +27,7 @@ void TAPIOCAS_init() {
         tapiocas_sprites[i] = SPR_addSprite(
             &tapioca_sprite,
             tapiocas[i].pos.x, tapiocas[i].pos.y,
-            TILE_ATTR(PAL3, 0, FALSE, FALSE)      
+            TILE_ATTR(PAL2, 0, FALSE, FALSE)      
         );
     }
 }

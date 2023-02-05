@@ -16,6 +16,7 @@ extern const Palette game_pal;
 extern const MapDefinition gamemap;
 extern const MapDefinition foremap;
 extern const SpriteDefinition player_sprite;
+extern const SpriteDefinition ghost_sprite;
 extern const SpriteDefinition tapioca_sprite;
 extern const Image lose_screen;
 extern const Image win_screen;
