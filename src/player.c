@@ -1,4 +1,5 @@
 #include <genesis.h>
+#include <resources.h>
 #include <maths.h>
 
 #include "player.h"
@@ -7,18 +8,27 @@
 #include "hitboxes.h"
 #include "ggj_debug.h"
 
+#define SFX_JUMP 66
+#define SFX_WALK 67
+//#define SFX_DEATH 68
+
+u8 stepCount = 0;
+
 Character CHAR_init() {
+
+
     return (Character) {
         .isJumping = FALSE,
         .isDead = FALSE,
         .position = {
-            .x = FIX32(160),
+            .x = FIX32(100),
             .y = FIX32(10),
         },
         .speed = {
             .x = FIX32(0),
             .y = FIX32(0),
         },
+        .direction = 1,
         .tag = ENTITY_TAG_PLAYER
     };
 }
@@ -32,6 +42,17 @@ Box PLAYER_hitbox(Character* character) {
     };
 }
 
+Box PLAYER_atk_hitbox(Character* character) {
+    s16 dir = character->direction;
+    Box hitbox = {
+        .x = ((s16)fix32ToInt(character->position.x) + 9) + (10 * dir),
+        .y = (s16)(fix32ToInt(character->position.y) + 3),
+        .w = 10,
+        .h = 27,
+    };
+    return hitbox;
+}
+
 void CHAR_updateCollisions(Character* character) {
     Box bb = PLAYER_hitbox(character);
     character->collision = HB_get_collision_data(bb);
@@ -42,6 +63,7 @@ bool CHAR_isGrounded(Character* character) {
 }
 
 void PLAYER_die(Character* character) {
+    //XGM_startPlayPCM(SFX_DEATH,1,SOUND_PCM_CH2);
     character->isDead = TRUE;
 }
 
@@ -51,6 +73,8 @@ void CHAR_movement(Character* character) {
         s32 sy = fix32ToInt(character->speed.y);
 
         if (character->isJumping && CHAR_isGrounded(character)) {
+            XGM_startPlayPCM(SFX_JUMP,1,SOUND_PCM_CH2);
+
             sy = -10;
             character->isJumping = FALSE;
         }
@@ -58,6 +82,13 @@ void CHAR_movement(Character* character) {
         sy = clamp((sy + 1), (-10), (6));
 
         character->speed.y = FIX32(sy);
+    }
+
+    // store direction
+    if (character->speed.x > 0) {
+        character->direction = 1;
+    } else if (character->speed.x < 0) {
+        character->direction = -1;
     }
 
     // collision system:
@@ -100,6 +131,13 @@ void CHAR_movement(Character* character) {
     // now, the speed values are corrected by the collision system, thus it's safe to translate
     character->position.x += character->speed.x;
     character->position.y += character->speed.y;
+
+    stepCount++;
+
+    if (stepCount > 5) {
+        XGM_startPlayPCM(SFX_WALK,1,SOUND_PCM_CH2);
+        stepCount = 0;
+    }
 }
 /*
 bool CHAR_checkCollision(Character* character, s16 x, s16 y) {
