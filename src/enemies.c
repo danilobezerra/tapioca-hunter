@@ -22,6 +22,7 @@ Box GHOST_hitbox(Character* character) {
 }
 
 void GHOST_update_sprite(Character* ghost, Sprite* ghost_sprite) {
+    SPR_setHFlip(ghost_sprite, ghost->direction < 0);    
     CAM_setSpritePosition(ghost_sprite, fix32ToInt(ghost->position.x), fix32ToInt(ghost->position.y));
 }
 
@@ -42,7 +43,6 @@ void GHOST_update(u16 idx, s32 x, s32 y, Character* player, Box atk) {
     s32 py = fix32ToInt(ghost->position.y);
     s32 dx = x - px;
     s32 dy = y - py;
-
     
     if (max(abs(dx), abs(dy)) > 120) { // too far
         ghost->speed.x = FIX32(0);
@@ -66,8 +66,8 @@ void GHOST_update(u16 idx, s32 x, s32 y, Character* player, Box atk) {
         ghost->speed.y = FIX32(0);
     } else { // inside range    
         // follow player
-        ghost->speed.x = FIX32(clamp(dx, -0.5, 0.5));
-        ghost->speed.y = FIX32(clamp(dy, -0.5, 0.5));
+        ghost->speed.x = FIX32(clamp(dx, -1, 1));
+        ghost->speed.y = FIX32(clamp(dy, -1, 1));
 
         // run "physics" system
         CHAR_movement(ghost);

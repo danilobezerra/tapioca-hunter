@@ -9,6 +9,7 @@
 Character ghosts[GHOST_COUNT];
 Sprite* ghosts_sprites[GHOST_COUNT];
 
+void ENEMIES_clear();
 void GHOST_init(Character* out_ghost, Sprite** out_ghost_sprite, s32 x, s32 y);
 void ENEMIES_init();
 

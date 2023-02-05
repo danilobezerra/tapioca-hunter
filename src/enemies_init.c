@@ -14,7 +14,13 @@ void GHOST_init(Character* out_ghost, Sprite** out_ghost_sprite, s32 x, s32 y) {
     ghost.position.x = FIX32(x);
     ghost.position.y = FIX32(y);
     *out_ghost = ghost;
-    *out_ghost_sprite = SPR_addSprite(&player_sprite, x, y, TILE_ATTR(PAL3, 0, FALSE, FALSE));
+    *out_ghost_sprite = SPR_addSprite(&ghost_sprite, x, y, TILE_ATTR(PAL3, 0, FALSE, FALSE));
+}
+
+void ENEMIES_clear() {
+    for (int i = 0; i < GHOST_COUNT; ++i) {
+        SPR_releaseSprite(ghosts_sprites[i]);
+    }
 }
 
 void ENEMIES_init() {

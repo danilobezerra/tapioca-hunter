@@ -57,16 +57,18 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
         INPUT_joystickHandler(&player, isPaused);
         CHAR_movement(&player);
 
-        ENEMIES_update(&player);
-        TAPIOCAS_update(&player);
-
         if (showFPS) {
             VDP_showFPS(FALSE);
         }
 
+        SPR_setHFlip(playerSprite, player.direction < 0);
+        
         CAM_update(foreground, background, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
         CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
 
+        TAPIOCAS_update(&player);
+        ENEMIES_update(&player);
+        
         if (player.isDead || TAPIOCAS_getCount() == 0 ) {
             SCENE_set(ENDING);
         }
@@ -77,5 +79,9 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
 
     PAL_fadeOutAll(15, FALSE);
     CAM_update(foreground, background, 0, 0);
+    ENEMIES_clear();
+    TAPIOCAS_clear();
+    SPR_releaseSprite(playerSprite);
+    SPR_update();
     waitTick(TICKPERSECOND / 2);
 }
