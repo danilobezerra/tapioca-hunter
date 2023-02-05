@@ -2,6 +2,8 @@
 
 #include "scene_manager.h"
 
+#define SFX_ENTER 64
+
 u8 tickCount = 0;
 
 void blinkText() {
@@ -37,6 +39,7 @@ void SCENE_MainMenu(u16* mainPalette, u16 userIndex) {
         u16 value = JOY_readJoypad(JOY_1);
 
         if (value & BUTTON_START) {
+            XGM_startPlayPCM(SFX_ENTER,1,SOUND_PCM_CH2);
             SCENE_set(GAMEPLAY);
         }
 
