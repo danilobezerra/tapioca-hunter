@@ -12,7 +12,7 @@ Character CHAR_init() {
         .isJumping = FALSE,
         .isDead = FALSE,
         .position = {
-            .x = FIX32(160),
+            .x = FIX32(100),
             .y = FIX32(10),
         },
         .speed = {

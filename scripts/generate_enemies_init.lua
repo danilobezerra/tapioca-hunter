@@ -1,6 +1,6 @@
 local tiledfile = require 'res.tiled.objects'
 
-local ghosts = tiledfile.layers[2].objects or {}
+local ghosts = tiledfile.layers[3].objects or {}
 
 if #ghosts == 0 then
   print("'WARN: couldn't get ghosts")

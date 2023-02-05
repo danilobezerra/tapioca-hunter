@@ -40,8 +40,9 @@ void GHOST_update(u16 idx, s32 x, s32 y, Character* player, Box atk) {
     s32 py = fix32ToInt(ghost->position.y);
     s32 dx = x - px;
     s32 dy = y - py;
+
     
-    if (max(dx, dy) > 120) { // too far
+    if (max(abs(dx), abs(dy)) > 120) { // too far
         ghost->speed.x = FIX32(0);
         ghost->speed.y = FIX32(0);
         GHOST_update_sprite(ghost, ghosts_sprites[idx]);

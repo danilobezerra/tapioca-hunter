@@ -14,6 +14,18 @@ local tiledfile = require 'res.tiled.objects'
 
 local function get_matrix()
   local tilelayer = tiledfile.layers[1]
+
+  local is_surface = {}
+  for _, v in ipairs({9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 22, 29, 30}) do
+    is_surface[v] = true
+  end
+
+  for i, v in ipairs(tilelayer.data) do
+    if not is_surface[v] then
+      tilelayer.data[i] = 0
+    end
+  end
+  
   local csv = tilelayer.data
   
   local matrix = {}

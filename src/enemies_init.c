@@ -18,7 +18,10 @@ void GHOST_init(Character* out_ghost, Sprite** out_ghost_sprite, s32 x, s32 y) {
 }
 
 void ENEMIES_init() {
-    GHOST_init(&ghosts[0], &ghosts_sprites[0], 160, 136);
-    GHOST_init(&ghosts[1], &ghosts_sprites[1], 304, 136);
-    GHOST_init(&ghosts[2], &ghosts_sprites[2], 208, 152);
+    GHOST_init(&ghosts[0], &ghosts_sprites[0], 160, 152);
+    GHOST_init(&ghosts[1], &ghosts_sprites[1], 336, 128);
+    GHOST_init(&ghosts[2], &ghosts_sprites[2], 272, 152);
+    GHOST_init(&ghosts[3], &ghosts_sprites[3], 368, 128);
+    GHOST_init(&ghosts[4], &ghosts_sprites[4], 400, 128);
+    GHOST_init(&ghosts[5], &ghosts_sprites[5], 240, 96);
 }
