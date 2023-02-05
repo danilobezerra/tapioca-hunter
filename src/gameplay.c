@@ -28,8 +28,12 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
 
     SPR_init();
     PAL_setPalette(PAL3, player_sprite.palette->data, DMA);
-    CAM_setPosition(background, playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
-    CAM_setPosition(background, playerSprite, fix32ToInt(player.position.x) - 1, fix32ToInt(player.position.y) - 1);
+
+    CAM_update(background, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
+    CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
+
+    CAM_update(background, fix32ToInt(player.position.x) - 1, fix32ToInt(player.position.y) - 1);
+    CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x) - 1, fix32ToInt(player.position.y) - 1);
 
     playerSprite = SPR_addSprite(&player_sprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y),
                                  TILE_ATTR(PAL3, 0, FALSE, FALSE));
@@ -49,7 +53,8 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
             VDP_showFPS(FALSE);
         }
 
-        CAM_setPosition(background, playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
+        CAM_update(background, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
+        CAM_setSpritePosition(playerSprite, fix32ToInt(player.position.x), fix32ToInt(player.position.y));
 
         // wait vblank
         SYS_doVBlankProcess();

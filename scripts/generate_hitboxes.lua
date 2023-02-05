@@ -26,6 +26,26 @@ local function csv_to_matrix(csv)
   return matrix
 end
 
+local function print_matrix(matrix, x, y)
+  x = x or -1
+  y = y or -1
+
+  for i, line in ipairs(matrix) do
+    for j, tile in ipairs(line) do
+      local n = ' '
+      
+      if i == y and j == x then
+        n = '#'
+      elseif tile then
+        n = 'x'
+      end
+      
+      io.write(n)
+    end
+    print(' --> ' .. tostring(i))
+  end
+end
+
 local function matrix_to_regions(matrix)
   local function mtx_width()
     local first_line = matrix[1]
@@ -70,8 +90,8 @@ local function matrix_to_regions(matrix)
 
     local cell = matrix[y][x]
     local is_last_cell = x == mtx_width() and y == mtx_height()
-    local is_first_column = growing_axis == 0
 
+    local is_first_column = growing_axis == 0
     if prev_cell and is_first_column then
       push_region()
     end
@@ -145,7 +165,7 @@ for i, region in ipairs(regions) do
 end
 generated_src = table.concat(generated_src, '\n')
 
-local template_file <close> = io.open('scripts/hitboxes_template.h')
+local template_file <close> = io.open('scripts/templates/hitboxes_template.h')
 local template = template_file:read('a')
 
 local result = template:gsub('// HITBOXES ARRAY //', generated_src)
