@@ -69,4 +69,7 @@ void SCENE_Gameplay(u16* mainPalette, u16 userIndex) {
         // wait vblank
         SYS_doVBlankProcess();
     }
+
+    PAL_fadeOutAll(15, FALSE);
+    waitTick(TICKPERSECOND / 2);
 }

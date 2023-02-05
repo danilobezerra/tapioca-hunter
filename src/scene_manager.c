@@ -6,16 +6,12 @@
 #include "ending.h"
 
 void SCENE_set(enum Scene scene) {
+    XGM_stopPlay();
     currentScene = scene;
 
     switch (currentScene) {
         case SPLASH:
             SCENE_loadCurrentScene = &SCENE_Splash;
-
-            if (XGM_isPlaying()) {
-                XGM_stopPlay();
-            }
-
             break;
         case MAIN_MENU:
             SCENE_loadCurrentScene = &SCENE_MainMenu;
@@ -27,7 +23,7 @@ void SCENE_set(enum Scene scene) {
             break;
         case ENDING:
             SCENE_loadCurrentScene = &SCENE_Ending;
-            XGM_startPlay(FAR_SAFE(&ending_bgm, sizeof(ending_bgm)));
+            //XGM_startPlay(FAR_SAFE(&ending_bgm, sizeof(ending_bgm)));
             break;
         default:
             break;
